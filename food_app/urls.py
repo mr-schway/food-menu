@@ -16,8 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from users import views as userViews
+from django.contrib.auth import views as authViews
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('food_menu/', include("food_menu.urls")),
+    path('register/', userViews.register, name="register"),
+    path('login/', authViews.LoginView.as_view(template_name="users/login.html"), name="login"),
+    # path('logout/', authViews.LogoutView.as_view(template_name="users/logout.html"), name="logout"),
+    path('logout/', userViews.logoutView, name='logout'),
+    path('profile/', userViews.profilePage, name="profile")
 ]
+urlpatterns += [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
