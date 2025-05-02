@@ -4,12 +4,12 @@ from . import views
 app_name = "food_menu"
 urlpatterns = [
   # /food/
-  path("", views.index, name="index"),
+  path("", views.IndexClassView.as_view(), name="index"),
   # /food/1
-  path("<int:itemId>/", views.detail, name="detail"),
+  path("<int:pk>/", views.FoodDetail.as_view(), name="detail"),
   path("item/", views.item, name="item"),
   # add item
-  path("add/", views.createItem, name="createItem"),
+  path("add/", views.CreateItem.as_view(), name="createItem"),
   # edit item
   path("update/<int:itemId>/", views.updateItem, name="updateItem"),
   # delete item
